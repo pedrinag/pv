@@ -132,13 +132,14 @@ html, body {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
-  .sermon-viewer-mobile-wider {
-    max-width: 98vw !important;
-    width: 98vw !important;
-    margin-left: 1vw !important;
-    margin-right: 1vw !important;
+  .force-desktop-download {
+    max-width: 700px !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+    box-sizing: border-box !important;
   }
 }
 
