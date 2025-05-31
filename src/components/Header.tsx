@@ -47,6 +47,19 @@ export const Header = ({ activeTab, setActiveTab }: HeaderProps) => {
 
   return (
     <>
+      {/* Mobile Top Bar */}
+      <div className="md:hidden bg-white shadow-md rounded-b-2xl h-16 flex items-center px-5">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+            <BookOpen className="w-6 h-6 text-white" />
+          </div>
+          <div className="flex flex-col justify-center min-w-0">
+            <span className="font-bold text-lg text-gray-900 leading-tight">Sermão Fácil</span>
+            <span className="text-xs text-gray-400 leading-tight">Gerador de Sermões</span>
+          </div>
+        </div>
+      </div>
+
       {/* Header Desktop/Tablet */}
       <header className="bg-white shadow-sm border-b border-gray-200 hidden md:block">
         <div className="container mx-auto px-4">
@@ -130,39 +143,38 @@ export const Header = ({ activeTab, setActiveTab }: HeaderProps) => {
       </header>
 
       {/* Bottom Navigation Mobile Only */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg md:hidden w-full max-w-full overflow-x-hidden">
-        <div className="grid grid-cols-5 h-16 w-full">
+      <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 md:hidden w-[95vw] max-w-xl px-2">
+        <div className="flex items-center justify-between bg-white/90 backdrop-blur rounded-full shadow-lg border border-gray-200 px-2 py-1">
           {navigation.map((item) => {
             const Icon = item.icon;
+            const isActive = activeTab === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex flex-col items-center justify-center w-full text-[10px] font-medium focus:outline-none transition-colors ${
-                  activeTab === item.id
-                    ? "text-blue-600"
-                    : "text-gray-500 hover:text-blue-500"
+                className={`flex flex-col items-center justify-center w-12 h-12 rounded-full transition-colors focus:outline-none ${
+                  isActive ? "bg-blue-50 text-blue-600 shadow" : "text-gray-500 hover:text-blue-500"
                 }`}
               >
-                <Icon className={`w-5 h-5 mb-0.5 ${activeTab === item.id ? "text-blue-600" : "text-gray-400"}`} />
-                <span className="truncate px-1">{item.label}</span>
+                <Icon className={`w-6 h-6 mb-0.5 ${isActive ? "text-blue-600" : "text-gray-400"}`} />
+                <span className="text-[11px] font-medium leading-tight mt-0.5">{item.label}</span>
               </button>
             );
           })}
           <button
             onClick={() => setActiveTab("profile")}
-            className={`flex flex-col items-center justify-center w-full text-[10px] font-medium focus:outline-none transition-colors ${
+            className={`flex flex-col items-center justify-center w-12 h-12 rounded-full transition-colors focus:outline-none ${
               activeTab === "profile"
-                ? "text-blue-600"
+                ? "bg-blue-50 text-blue-600 shadow"
                 : "text-gray-500 hover:text-blue-500"
             }`}
           >
             {avatarUrl ? (
-              <img src={avatarUrl} alt="Avatar" className="w-7 h-7 mb-0.5 rounded-full object-cover" />
+              <img src={avatarUrl} alt="Avatar" className="w-6 h-6 mb-0.5 rounded-full object-cover border border-gray-200" />
             ) : (
-              <User className={`w-5 h-5 mb-0.5 ${activeTab === "profile" ? "text-blue-600" : "text-gray-400"}`} />
+              <User className={`w-6 h-6 mb-0.5 ${activeTab === "profile" ? "text-blue-600" : "text-gray-400"}`} />
             )}
-            <span className="truncate px-1">Perfil</span>
+            <span className="text-[11px] font-medium leading-tight mt-0.5">Perfil</span>
           </button>
         </div>
       </nav>
