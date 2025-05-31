@@ -48,12 +48,12 @@ export const Header = ({ activeTab, setActiveTab }: HeaderProps) => {
   return (
     <>
       {/* Mobile Top Bar */}
-      <div className="md:hidden bg-white shadow-md rounded-b-2xl h-16 flex items-center px-5">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-            <BookOpen className="w-6 h-6 text-white" />
+      <div className="md:hidden bg-white px-4 pt-3 pb-2 flex items-center justify-center">
+        <div className="flex items-center gap-3 w-full">
+          <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+            <BookOpen className="w-5 h-5 text-white" />
           </div>
-          <div className="flex flex-col justify-center min-w-0">
+          <div className="flex flex-col items-start justify-center min-w-0">
             <span className="font-bold text-lg text-gray-900 leading-tight">Sermão Fácil</span>
             <span className="text-xs text-gray-400 leading-tight">Gerador de Sermões</span>
           </div>

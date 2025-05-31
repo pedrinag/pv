@@ -33,9 +33,6 @@ export const SermonViewer = ({ sermon, onBack }: SermonViewerProps) => {
 
   const handleDownload = async () => {
     if (contentRef.current) {
-      contentRef.current.classList.add('force-desktop-download');
-      await new Promise((r) => setTimeout(r, 100));
-
       const canvas = await html2canvas(contentRef.current, { backgroundColor: '#fff', scale: 2 });
       const imgData = canvas.toDataURL('image/png');
       const link = document.createElement('a');
@@ -44,9 +41,8 @@ export const SermonViewer = ({ sermon, onBack }: SermonViewerProps) => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-      contentRef.current.classList.remove('force-desktop-download');
     } else {
+      // fallback para txt
       const element = document.createElement('a');
       const file = new Blob([sermon.content || ''], { type: 'text/plain' });
       element.href = URL.createObjectURL(file);

@@ -103,10 +103,26 @@ const Index = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, activeTab]);
 
+  // Função para abrir geração de sermão limpa
+  const handleNewSermon = () => {
+    setSelectedGeneration(null);
+    setEditingGeneration(null);
+    setActiveSermonTab('form');
+    setActiveTab('generate-sermon');
+  };
+
+  // Função para abrir geração de devocional limpa
+  const handleNewDevotional = () => {
+    setSelectedGeneration(null);
+    setEditingGeneration(null);
+    setActiveSermonTab('form');
+    setActiveTab('generate-devotional');
+  };
+
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard":
-        return <Dashboard setActiveTab={setActiveTab} onViewGeneration={handleViewGeneration} onEditGeneration={handleEditGeneration} />;
+        return <Dashboard setActiveTab={setActiveTab} onViewGeneration={handleViewGeneration} onEditGeneration={handleEditGeneration} onNewSermon={handleNewSermon} onNewDevotional={handleNewDevotional} />;
       case "generate-sermon":
         return <GenerateSermon setActiveTab={setActiveTab} externalSermon={selectedGeneration} editingSermon={editingGeneration} setEditingSermon={setEditingGeneration} activeSermonTab={activeSermonTab} setActiveSermonTab={setActiveSermonTab} onBack={handleBackToForm} />;
       case "generate-devotional":
@@ -159,7 +175,7 @@ const Index = () => {
       case "plans":
         return <Plans />;
       default:
-        return <Dashboard setActiveTab={setActiveTab} onViewGeneration={handleViewGeneration} onEditGeneration={handleEditGeneration} />;
+        return <Dashboard setActiveTab={setActiveTab} onViewGeneration={handleViewGeneration} onEditGeneration={handleEditGeneration} onNewSermon={handleNewSermon} onNewDevotional={handleNewDevotional} />;
     }
   };
 
@@ -184,7 +200,7 @@ const Index = () => {
   );
 };
 
-const Dashboard = ({ setActiveTab, onViewGeneration, onEditGeneration }: { setActiveTab: (tab: string) => void, onViewGeneration: (generation: Generation) => void, onEditGeneration: (generation: Generation) => void }) => {
+const Dashboard = ({ setActiveTab, onViewGeneration, onEditGeneration, onNewSermon, onNewDevotional }: { setActiveTab: (tab: string) => void, onViewGeneration: (generation: Generation) => void, onEditGeneration: (generation: Generation) => void, onNewSermon: () => void, onNewDevotional: () => void }) => {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
@@ -203,7 +219,7 @@ const Dashboard = ({ setActiveTab, onViewGeneration, onEditGeneration }: { setAc
       {/* Quick Actions */}
       <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
         <Card className="group hover:shadow-2xl transition-all duration-500 border-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white cursor-pointer transform hover:scale-105 hover:-translate-y-2 overflow-hidden relative" 
-          onClick={() => setActiveTab("generate-sermon")}> 
+          onClick={onNewSermon}> 
           {/* Decorative background elements */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700"></div>
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 -translate-x-12 group-hover:scale-125 transition-transform duration-700"></div>
@@ -224,7 +240,7 @@ const Dashboard = ({ setActiveTab, onViewGeneration, onEditGeneration }: { setAc
           </CardContent>
         </Card>
         <Card className="group hover:shadow-2xl transition-all duration-500 border-0 bg-gradient-to-br from-purple-500 to-indigo-600 text-white cursor-pointer transform hover:scale-105 hover:-translate-y-2 overflow-hidden relative"
-          onClick={() => setActiveTab("generate-devotional")}> 
+          onClick={onNewDevotional}> 
           {/* Decorative background elements */}
           <div className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 -translate-x-16 group-hover:scale-150 transition-transform duration-700"></div>
           <div className="absolute bottom-0 right-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 translate-x-12 group-hover:scale-125 transition-transform duration-700"></div>
@@ -273,6 +289,19 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
       setContent(editingSermon.content || '');
     }
   }, [editingSermon]);
+
+  // Limpa o estado ao abrir para gerar novo
+  useEffect(() => {
+    if (!externalSermon && !editingSermon && activeSermonTab === 'form') {
+      setGeneratedSermon(null);
+      setTitle('');
+      setTheme(undefined);
+      setOccasion(undefined);
+      setTone(undefined);
+      setBibleVerse('');
+      setContent('');
+    }
+  }, [externalSermon, editingSermon, activeSermonTab]);
 
   const sermonToShow = externalSermon || generatedSermon;
 
@@ -525,29 +554,33 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
                 {/* Botões */}
                 <div className="flex justify-between gap-4 mt-8">
                   <button
-                    type="button" 
+                    type="button"
                     onClick={handleBackToForm}
-                    className="w-1/2 py-4 rounded-2xl font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-100 transition"
+                    className="w-1/2 h-10 py-2 rounded-md text-sm font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-100 transition
+                      md:h-auto md:py-4 md:rounded-2xl md:text-lg
+                    "
                     disabled={isGeneratingWithN8N || isUpdating}
                   >
                     Voltar
                   </button>
                   <button
-                      type="submit" 
-                    className="w-1/2 py-4 rounded-2xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:from-blue-600 hover:to-indigo-600 transition flex items-center justify-center gap-2"
-                      disabled={isGeneratingWithN8N || isUpdating}
-                    >
+                    type="submit"
+                    className="w-1/2 h-10 py-2 rounded-md text-sm font-bold bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:from-blue-600 hover:to-indigo-600 transition flex items-center justify-center gap-2
+                      md:h-auto md:py-4 md:rounded-2xl md:text-lg
+                    "
+                    disabled={isGeneratingWithN8N || isUpdating}
+                  >
                     {(isGeneratingWithN8N || isUpdating) ? (
-                        <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          {isUpdating ? 'Salvando...' : 'Gerando com IA...'}
-                        </>
-                      ) : (
-                        <>
-                          <BookOpen className="w-4 h-4 mr-2" />
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        {isUpdating ? 'Salvando...' : 'Gerando com IA...'}
+                      </>
+                    ) : (
+                      <>
+                        <BookOpen className="w-4 h-4 mr-2" />
                         {editingSermon ? 'Salvar' : 'Gerar Sermão com IA'}
-                        </>
-                      )}
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
@@ -595,6 +628,18 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
       setContent(editingDevotional.content || '');
     }
   }, [editingDevotional]);
+
+  // Limpa o estado ao abrir para gerar novo
+  useEffect(() => {
+    if (!externalDevotional && !editingDevotional && activeSermonTab === 'form') {
+      setGeneratedDevotional(null);
+      setTitle('');
+      setTheme(undefined);
+      setOccasion(undefined);
+      setBibleVerse('');
+      setContent('');
+    }
+  }, [externalDevotional, editingDevotional, activeSermonTab]);
 
   const devotionalToShow = externalDevotional || generatedDevotional;
 
@@ -809,29 +854,33 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
                 {/* Botões */}
                 <div className="flex justify-between gap-4 mt-8">
                   <button
-                    type="button" 
+                    type="button"
                     onClick={handleBackToForm}
-                    className="w-1/2 py-4 rounded-2xl font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-100 transition"
+                    className="w-1/2 h-10 py-2 rounded-md text-sm font-semibold bg-white border border-gray-200 text-gray-700 hover:bg-gray-100 transition
+                      md:h-auto md:py-4 md:rounded-2xl md:text-lg
+                    "
                     disabled={isGeneratingDevotionalWithN8N || isUpdating}
                   >
                     Voltar
                   </button>
                   <button
-                      type="submit" 
-                    className="w-1/2 py-4 rounded-2xl font-bold bg-gradient-to-r from-pink-500 to-pink-600 text-white shadow-lg hover:from-pink-600 hover:to-purple-600 transition flex items-center justify-center gap-2"
-                      disabled={isGeneratingDevotionalWithN8N || isUpdating}
-                    >
+                    type="submit"
+                    className="w-1/2 h-10 py-2 rounded-md text-sm font-bold bg-gradient-to-r from-pink-500 to-pink-600 text-white shadow-lg hover:from-pink-600 hover:to-purple-600 transition flex items-center justify-center gap-2
+                      md:h-auto md:py-4 md:rounded-2xl md:text-lg
+                    "
+                    disabled={isGeneratingDevotionalWithN8N || isUpdating}
+                  >
                     {(isGeneratingDevotionalWithN8N || isUpdating) ? (
-                        <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          {isUpdating ? 'Salvando...' : 'Gerando com IA...'}
-                        </>
-                      ) : (
-                        <>
-                          <Heart className="w-4 h-4 mr-2" />
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        {isUpdating ? 'Salvando...' : 'Gerando com IA...'}
+                      </>
+                    ) : (
+                      <>
+                        <Heart className="w-4 h-4 mr-2" />
                         {editingDevotional ? 'Salvar' : 'Gerar Devocional'}
-                        </>
-                      )}
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
