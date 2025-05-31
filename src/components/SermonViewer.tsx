@@ -98,7 +98,7 @@ export const SermonViewer = ({ sermon, onBack }: SermonViewerProps) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6 sermon-viewer-mobile-wider">
       <div className="flex items-center justify-between">
         <Button 
           variant="outline" 
