@@ -39,7 +39,7 @@ export const Header = ({ activeTab, setActiveTab }: HeaderProps) => {
 
   const navigation = [
     { id: "dashboard", label: "Dashboard", icon: BookOpen },
-    { id: "generate-sermon", label: "Gerar Sermão", icon: BookOpen },
+    { id: "generate-sermon", label: "Sermão", icon: BookOpen },
     { id: "generate-devotional", label: "Devocional", icon: Users },
     { id: "history", label: "Histórico", icon: History },
     { id: "plans", label: "Planos", icon: Star },
@@ -144,7 +144,7 @@ export const Header = ({ activeTab, setActiveTab }: HeaderProps) => {
 
       {/* Bottom Navigation Mobile Only */}
       <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 md:hidden w-[95vw] max-w-xl px-2">
-        <div className="flex items-center justify-between bg-white/90 backdrop-blur rounded-full shadow-lg border border-gray-200 px-2 py-1">
+        <div className="flex items-center justify-between bg-white/90 backdrop-blur rounded-full shadow-lg border border-gray-200 px-2 py-1.5 gap-x-1.5">
           {navigation.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -156,8 +156,8 @@ export const Header = ({ activeTab, setActiveTab }: HeaderProps) => {
                   isActive ? "bg-blue-50 text-blue-600 shadow" : "text-gray-500 hover:text-blue-500"
                 }`}
               >
-                <Icon className={`w-6 h-6 mb-0.5 ${isActive ? "text-blue-600" : "text-gray-400"}`} />
-                <span className="text-[11px] font-medium leading-tight mt-0.5">{item.label}</span>
+                <Icon className={`w-5 h-5 mb-0.5 ${isActive ? "text-blue-600" : "text-gray-400"}`} />
+                <span className="text-[10px] font-medium leading-tight mt-0.5">{item.label}</span>
               </button>
             );
           })}
@@ -170,11 +170,11 @@ export const Header = ({ activeTab, setActiveTab }: HeaderProps) => {
             }`}
           >
             {avatarUrl ? (
-              <img src={avatarUrl} alt="Avatar" className="w-6 h-6 mb-0.5 rounded-full object-cover border border-gray-200" />
+              <img src={avatarUrl} alt="Avatar" className="w-5 h-5 mb-0.5 rounded-full object-cover border border-gray-200" />
             ) : (
-              <User className={`w-6 h-6 mb-0.5 ${activeTab === "profile" ? "text-blue-600" : "text-gray-400"}`} />
+              <User className={`w-5 h-5 mb-0.5 ${activeTab === "profile" ? "text-blue-600" : "text-gray-400"}`} />
             )}
-            <span className="text-[11px] font-medium leading-tight mt-0.5">Perfil</span>
+            <span className="text-[10px] font-medium leading-tight mt-0.5">Perfil</span>
           </button>
         </div>
       </nav>

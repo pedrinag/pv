@@ -42,7 +42,7 @@ const Index = () => {
   const [editingGeneration, setEditingGeneration] = useState<Generation | null>(null);
   const [activeSermonTab, setActiveSermonTab] = useState("form");
   const { user, signOut } = useAuth();
-  const [adminStats, setAdminStats] = useState<{user_id: string, full_name: string, email: string, count: number}[]>([]);
+  const [adminStats, setAdminStats] = useState<{ user_id: string, full_name: string, email: string, count: number }[]>([]);
   const [adminLoading, setAdminLoading] = useState(false);
 
   const handleSignOut = async () => {
@@ -218,8 +218,8 @@ const Dashboard = ({ setActiveTab, onViewGeneration, onEditGeneration, onNewSerm
 
       {/* Quick Actions */}
       <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-        <Card className="group hover:shadow-2xl transition-all duration-500 border-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white cursor-pointer transform hover:scale-105 hover:-translate-y-2 overflow-hidden relative" 
-          onClick={onNewSermon}> 
+        <Card className="group hover:shadow-2xl transition-all duration-500 border-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white cursor-pointer transform hover:scale-105 hover:-translate-y-2 overflow-hidden relative"
+          onClick={onNewSermon}>
           {/* Decorative background elements */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700"></div>
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 -translate-x-12 group-hover:scale-125 transition-transform duration-700"></div>
@@ -240,7 +240,7 @@ const Dashboard = ({ setActiveTab, onViewGeneration, onEditGeneration, onNewSerm
           </CardContent>
         </Card>
         <Card className="group hover:shadow-2xl transition-all duration-500 border-0 bg-gradient-to-br from-purple-500 to-indigo-600 text-white cursor-pointer transform hover:scale-105 hover:-translate-y-2 overflow-hidden relative"
-          onClick={onNewDevotional}> 
+          onClick={onNewDevotional}>
           {/* Decorative background elements */}
           <div className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 -translate-x-16 group-hover:scale-150 transition-transform duration-700"></div>
           <div className="absolute bottom-0 right-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 translate-x-12 group-hover:scale-125 transition-transform duration-700"></div>
@@ -372,7 +372,7 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
         {/* Elementos decorativos */}
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-8">
           <div className="w-24 h-24 bg-gradient-to-br from-blue-200/30 to-indigo-300/30 rounded-full blur-xl"></div>
-      </div>
+        </div>
         <div className="absolute -top-4 -right-8">
           <Star className="w-8 h-8 text-blue-400 animate-pulse" />
         </div>
@@ -390,22 +390,21 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
         {/* Background decorativo */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5"></div>
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-blue-200/20 to-transparent rounded-full -translate-y-32 translate-x-32"></div>
-        <CardContent className="p-10 relative z-10">
+        <CardContent className="p-1 relative z-10">
           <Tabs value={activeSermonTab} onValueChange={setActiveSermonTab}>
-            <TabsList className="grid w-full grid-cols-2 mb-8 bg-white/70 backdrop-blur-sm shadow-lg rounded-2xl p-2 border border-white/20">
-              <TabsTrigger 
-                value="form" 
-                className="rounded-xl font-semibold transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg"
+            <TabsList className="flex w-full mb-8 bg-white/70 backdrop-blur-sm shadow-lg rounded-md overflow-hidden border border-white/20 items-center sm:grid sm:grid-cols-2 sm:rounded-md sm:overflow-visible">
+              <TabsTrigger
+                value="form"
+                className="flex-1 rounded-none font-semibold transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg flex items-center justify-center h-10 text-sm px-4 py-2 first:rounded-l-md last:rounded-none sm:rounded-md"
               >
-                <BookOpen className="w-4 h-4 mr-2" />
-                Criar Sermão
+                <span>Criar Sermão</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="viewer" 
-                className="rounded-xl font-semibold transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg"
+              <TabsTrigger
+                value="viewer"
+                className="flex-1 rounded-none font-semibold transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg flex items-center justify-center h-10 text-sm px-4 py-2 last:rounded-r-md first:rounded-none sm:rounded-md text-gray-500 data-[state=active]:text-white"
                 disabled={!sermonToShow && !isGeneratingWithN8N}
               >
-                Visualizar Sermão
+                <span>Visualizar Sermão</span>
               </TabsTrigger>
             </TabsList>
             <TabsContent value="form" className="mt-0">
@@ -419,16 +418,16 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
                     Título do Sermão *
                   </label>
                   <div className="relative group">
-                  <input 
-                    type="text" 
+                    <input
+                      type="text"
                       placeholder="Ex: A Importância da Fé em Tempos Difíceis"
                       className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl font-medium text-gray-800 placeholder-gray-500 group-hover:border-blue-300"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                  />
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      required
+                    />
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-indigo-500/5 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
+                  </div>
                 </div>
                 {/* Layout de duas colunas */}
                 <div className="grid md:grid-cols-2 gap-8">
@@ -441,12 +440,12 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
                       Tema Principal
                     </label>
                     <div className="relative group">
-                    <select 
+                      <select
                         className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl font-medium text-gray-800 appearance-none cursor-pointer group-hover:border-purple-300"
-                      value={theme ?? ''}
-                      onChange={(e) => setTheme(e.target.value ? (e.target.value as ThemeType) : undefined)}
-                      disabled={!!editingSermon}
-                    >
+                        value={theme ?? ''}
+                        onChange={(e) => setTheme(e.target.value ? (e.target.value as ThemeType) : undefined)}
+                        disabled={!!editingSermon}
+                      >
                         <option value="">Selecione um tema inspirador...</option>
                         <option value="fe">🙏 Fé</option>
                         <option value="amor">❤️ Amor</option>
@@ -456,9 +455,9 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
                         <option value="familia">👨‍👩‍👧‍👦 Família</option>
                         <option value="ansiedade">😌 Ansiedade</option>
                         <option value="cura">💚 Cura</option>
-                    </select>
+                      </select>
                       <ChevronDown className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
-                  </div>
+                    </div>
                   </div>
                   {/* Campo Ocasião */}
                   <div className="relative">
@@ -469,12 +468,12 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
                       Ocasião
                     </label>
                     <div className="relative group">
-                    <select 
+                      <select
                         className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl font-medium text-gray-800 appearance-none cursor-pointer group-hover:border-green-300"
-                      value={occasion ?? ''}
-                      onChange={(e) => setOccasion(e.target.value ? (e.target.value as OccasionType) : undefined)}
-                      disabled={!!editingSermon}
-                    >
+                        value={occasion ?? ''}
+                        onChange={(e) => setOccasion(e.target.value ? (e.target.value as OccasionType) : undefined)}
+                        disabled={!!editingSermon}
+                      >
                         <option value="">Selecione uma ocasião especial...</option>
                         <option value="culto">⛪ Culto Dominical</option>
                         <option value="celula">🏠 Célula</option>
@@ -482,10 +481,10 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
                         <option value="funeral">🕯️ Funeral</option>
                         <option value="jovens">🎉 Reunião de Jovens</option>
                         <option value="evangelismo">📢 Evangelismo</option>
-                    </select>
+                      </select>
                       <ChevronDown className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
+                    </div>
                   </div>
-                </div>
                 </div>
                 {/* Campo Tom do Sermão */}
                 {!editingSermon && (
@@ -497,18 +496,18 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
                       Tom do Sermão
                     </label>
                     <div className="relative group">
-                    <select 
+                      <select
                         className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl font-medium text-gray-800 appearance-none cursor-pointer group-hover:border-indigo-300"
-                      value={tone ?? ''}
-                      onChange={(e) => setTone(e.target.value ? (e.target.value as ToneType) : undefined)}
-                    >
+                        value={tone ?? ''}
+                        onChange={(e) => setTone(e.target.value ? (e.target.value as ToneType) : undefined)}
+                      >
                         <option value="">Selecione o tom desejado...</option>
                         <option value="motivacional">💡 Motivacional</option>
                         <option value="confrontador">⚡ Confrontador</option>
                         <option value="amoroso">💖 Amoroso</option>
                         <option value="reflexivo">🧠 Reflexivo</option>
                         <option value="evangelistico">📣 Evangelístico</option>
-                    </select>
+                      </select>
                       <ChevronDown className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
                     </div>
                   </div>
@@ -522,16 +521,16 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
                     Versículo Base (Opcional)
                   </label>
                   <div className="relative group">
-                  <input 
-                    type="text" 
+                    <input
+                      type="text"
                       placeholder="Ex: João 3:16, Salmos 23:1, Filipenses 4:13..."
                       className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-orange-500/20 focus:border-orange-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl font-medium text-gray-800 placeholder-gray-500 group-hover:border-orange-300"
-                    value={bibleVerse}
-                    onChange={(e) => setBibleVerse(e.target.value)}
-                    disabled={!!editingSermon}
-                  />
+                      value={bibleVerse}
+                      onChange={(e) => setBibleVerse(e.target.value)}
+                      disabled={!!editingSermon}
+                    />
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-yellow-500/5 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
+                  </div>
                 </div>
                 {/* Campo Conteúdo (apenas edição) */}
                 {editingSermon && (
@@ -565,9 +564,11 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
                   </button>
                   <button
                     type="submit"
-                    className="w-1/2 h-10 py-2 rounded-md text-sm font-bold bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:from-blue-600 hover:to-indigo-600 transition flex items-center justify-center gap-2
-                      md:h-auto md:py-4 md:rounded-2xl md:text-lg
-                    "
+                    className="w-full max-w-xs mx-auto h-10 py-2 px-4 rounded-md text-sm font-bold bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:from-blue-600 hover:to-indigo-600 transition flex items-center justify-center gap-2
+                      sm:w-1/2 sm:text-base sm:py-2 sm:px-4
+                      md:h-auto md:py-4 md:rounded-2xl md:text-lg md:w-1/2
+                      whitespace-nowrap
+                      mb-4"
                     disabled={isGeneratingWithN8N || isUpdating}
                   >
                     {(isGeneratingWithN8N || isUpdating) ? (
@@ -707,7 +708,7 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
         {/* Elementos decorativos */}
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-8">
           <div className="w-24 h-24 bg-gradient-to-br from-pink-200/30 to-purple-300/30 rounded-full blur-xl"></div>
-      </div>
+        </div>
         <div className="absolute -top-4 -right-8">
           <Heart className="w-8 h-8 text-pink-400 animate-pulse" />
         </div>
@@ -725,22 +726,21 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
         {/* Background decorativo */}
         <div className="absolute inset-0 bg-gradient-to-br from-pink-600/5 via-transparent to-purple-600/5"></div>
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-pink-200/20 to-transparent rounded-full -translate-y-32 translate-x-32"></div>
-        <CardContent className="p-10 relative z-10">
+        <CardContent className="px-1 relative z-10">
           <Tabs value={activeSermonTab} onValueChange={setActiveSermonTab}>
-            <TabsList className="grid w-full grid-cols-2 mb-8 bg-white/70 backdrop-blur-sm shadow-lg rounded-2xl p-2 border border-white/20">
-              <TabsTrigger 
-                value="form" 
-                className="rounded-xl font-semibold transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-pink-600 data-[state=active]:text-white data-[state=active]:shadow-lg"
+            <TabsList className="flex w-full mb-8 bg-white/70 backdrop-blur-sm shadow-lg rounded-md overflow-hidden border border-white/20 items-center sm:grid sm:grid-cols-2 sm:rounded-md sm:overflow-visible">
+              <TabsTrigger
+                value="form"
+                className="flex-1 rounded-none font-semibold transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-pink-600 data-[state=active]:text-white data-[state=active]:shadow-lg flex items-center justify-center h-10 text-sm px-4 py-2 first:rounded-l-md last:rounded-none sm:rounded-md"
               >
-                <Heart className="w-4 h-4 mr-2" />
-                Criar Devocional
+                <span>Criar Devocional</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="viewer" 
-                className="rounded-xl font-semibold transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-pink-600 data-[state=active]:text-white data-[state=active]:shadow-lg"
+              <TabsTrigger
+                value="viewer"
+                className="flex-1 rounded-none font-semibold transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-pink-600 data-[state=active]:text-white data-[state=active]:shadow-lg flex items-center justify-center h-10 text-sm px-4 py-2 last:rounded-r-md first:rounded-none sm:rounded-md text-gray-500 data-[state=active]:text-white"
                 disabled={!devotionalToShow && !isGeneratingDevotionalWithN8N}
               >
-                Visualizar Devocional
+                <span>Visualizar Devocional</span>
               </TabsTrigger>
             </TabsList>
             <TabsContent value="form" className="mt-0">
@@ -754,16 +754,16 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
                     Título do Devocional *
                   </label>
                   <div className="relative group">
-                  <input 
-                    type="text" 
-                    placeholder="Ex: Gratidão em Cada Manhã"
+                    <input
+                      type="text"
+                      placeholder="Ex: Gratidão em Cada Manhã"
                       className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-pink-500/20 focus:border-pink-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl font-medium text-gray-800 placeholder-gray-500 group-hover:border-pink-300"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                  />
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      required
+                    />
                     <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 to-purple-500/5 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
+                  </div>
                 </div>
                 {/* Campo Tema */}
                 <div className="relative">
@@ -774,12 +774,12 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
                     Tema ou Foco
                   </label>
                   <div className="relative group">
-                  <select 
+                    <select
                       className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl font-medium text-gray-800 appearance-none cursor-pointer group-hover:border-blue-300"
-                    value={theme ?? ''}
-                    onChange={(e) => setTheme(e.target.value ? (e.target.value as ThemeType) : undefined)}
-                    disabled={!!editingDevotional}
-                  >
+                      value={theme ?? ''}
+                      onChange={(e) => setTheme(e.target.value ? (e.target.value as ThemeType) : undefined)}
+                      disabled={!!editingDevotional}
+                    >
                       <option value="">Selecione um tema inspirador...</option>
                       <option value="gratidao">🙌 Gratidão</option>
                       <option value="fe">🙏 Força e Fé</option>
@@ -787,9 +787,9 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
                       <option value="proposito">🎯 Propósito de Vida</option>
                       <option value="amor">❤️ Amor</option>
                       <option value="esperanca">✨ Esperança</option>
-                  </select>
+                    </select>
                     <ChevronDown className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
-                </div>
+                  </div>
                 </div>
                 {/* Campo Momento do Dia */}
                 <div className="relative">
@@ -800,18 +800,18 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
                     Momento do Dia
                   </label>
                   <div className="relative group">
-                  <select 
+                    <select
                       className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-orange-500/20 focus:border-orange-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl font-medium text-gray-800 appearance-none cursor-pointer group-hover:border-orange-300"
-                    value={occasion ?? ''}
-                    onChange={(e) => setOccasion(e.target.value ? (e.target.value as OccasionType) : undefined)}
-                    disabled={!!editingDevotional}
-                  >
+                      value={occasion ?? ''}
+                      onChange={(e) => setOccasion(e.target.value ? (e.target.value as OccasionType) : undefined)}
+                      disabled={!!editingDevotional}
+                    >
                       <option value="">Qualquer momento do dia...</option>
                       <option value="manha">🌅 Devocional Matinal</option>
                       <option value="noite">🌙 Reflexão Noturna</option>
-                  </select>
+                    </select>
                     <ChevronDown className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
-                </div>
+                  </div>
                 </div>
                 {/* Campo Versículo Base */}
                 <div className="relative">
@@ -822,16 +822,16 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
                     Versículo Base (Opcional)
                   </label>
                   <div className="relative group">
-                  <input 
-                    type="text" 
+                    <input
+                      type="text"
                       placeholder="Ex: Filipenses 4:13, Salmos 46:1, Provérbios 3:5-6..."
                       className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl font-medium text-gray-800 placeholder-gray-500 group-hover:border-green-300"
-                    value={bibleVerse}
-                    onChange={(e) => setBibleVerse(e.target.value)}
-                    disabled={!!editingDevotional}
-                  />
+                      value={bibleVerse}
+                      onChange={(e) => setBibleVerse(e.target.value)}
+                      disabled={!!editingDevotional}
+                    />
                     <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-green-300/5 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
+                  </div>
                 </div>
                 {/* Campo Conteúdo (apenas edição) */}
                 {editingDevotional && (
@@ -865,9 +865,11 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
                   </button>
                   <button
                     type="submit"
-                    className="w-1/2 h-10 py-2 rounded-md text-sm font-bold bg-gradient-to-r from-pink-500 to-pink-600 text-white shadow-lg hover:from-pink-600 hover:to-purple-600 transition flex items-center justify-center gap-2
-                      md:h-auto md:py-4 md:rounded-2xl md:text-lg
-                    "
+                    className="w-full max-w-xs mx-auto h-10 py-2 px-4 rounded-md text-sm font-bold bg-gradient-to-r from-pink-500 to-pink-600 text-white shadow-lg hover:from-pink-600 hover:to-purple-600 transition flex items-center justify-center gap-2
+                      sm:w-1/2 sm:text-base sm:py-2 sm:px-4
+                      md:h-auto md:py-4 md:rounded-2xl md:text-lg md:w-1/2
+                      whitespace-nowrap
+                      mb-4"
                     disabled={isGeneratingDevotionalWithN8N || isUpdating}
                   >
                     {(isGeneratingDevotionalWithN8N || isUpdating) ? (
@@ -974,7 +976,7 @@ const History = ({ onViewGeneration, onEditGeneration }: { onViewGeneration: (ge
   return (
     <div className="max-w-4xl mx-auto">
       <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Histórico de Gerações</h2>
-      
+
       {generations.length === 0 ? (
         <Card className="text-center py-12">
           <CardContent>
@@ -992,12 +994,11 @@ const History = ({ onViewGeneration, onEditGeneration }: { onViewGeneration: (ge
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold ${
-                        item.content_type === 'sermon' 
-                          ? 'bg-blue-100 text-blue-700' 
+                    <div className="flex items-center gap-2 mb-2 md:mb-2 flex-wrap md:flex-nowrap">
+                      <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold ${item.content_type === 'sermon'
+                          ? 'bg-blue-100 text-blue-700'
                           : 'bg-purple-100 text-purple-700'
-                      }`}>
+                        }`}>
                         {item.content_type === 'sermon' ? (
                           <BookOpen className="w-3 h-3" />
                         ) : (
@@ -1005,7 +1006,8 @@ const History = ({ onViewGeneration, onEditGeneration }: { onViewGeneration: (ge
                         )}
                         {item.content_type === 'sermon' ? 'Sermão' : 'Devocional'}
                       </div>
-                      <span className="text-sm text-gray-500">
+                      {/* Data: visível ao lado do tipo em desktop, escondida no mobile */}
+                      <span className="text-sm text-gray-500 hidden md:inline">
                         {format(new Date(item.created_at), 'dd/MM/yyyy', { locale: ptBR })}
                       </span>
                     </div>
@@ -1019,9 +1021,9 @@ const History = ({ onViewGeneration, onEditGeneration }: { onViewGeneration: (ge
                     <Button size="sm" variant="outline" onClick={() => onEditGeneration(item)}>
                       Editar
                     </Button>
-                    <Button 
-                      size="sm" 
-                      variant="ghost" 
+                    <Button
+                      size="sm"
+                      variant="ghost"
                       className="text-red-500 hover:text-red-700 hover:bg-red-50"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -1029,9 +1031,14 @@ const History = ({ onViewGeneration, onEditGeneration }: { onViewGeneration: (ge
                       }}
                     >
                       <Trash2 className="w-4 h-4" />
+
                     </Button>
                   </div>
                 </div>
+                {/* Data: visível embaixo no mobile, escondida no desktop */}
+                <span className="text-sm flex justify-end text-gray-500 mt-1 md:hidden">
+                  {format(new Date(item.created_at), 'dd/MM/yyyy', { locale: ptBR })}
+                </span>
               </CardContent>
             </Card>
           ))}
@@ -1044,7 +1051,7 @@ const History = ({ onViewGeneration, onEditGeneration }: { onViewGeneration: (ge
           <DialogHeader>
             <DialogTitle>{viewItem?.title}</DialogTitle>
             <DialogDescription>
-              <span className="font-semibold">{viewItem?.content_type === 'sermon' ? 'Sermão' : 'Devocional'}</span> - {getThemeLabel(viewItem?.theme)}<br/>
+              <span className="font-semibold">{viewItem?.content_type === 'sermon' ? 'Sermão' : 'Devocional'}</span> - {getThemeLabel(viewItem?.theme)}<br />
               <span className="text-xs text-gray-500">{viewItem?.bible_verse}</span>
             </DialogDescription>
           </DialogHeader>
@@ -1064,7 +1071,7 @@ const History = ({ onViewGeneration, onEditGeneration }: { onViewGeneration: (ge
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction 
+            <AlertDialogAction
               onClick={handleConfirmDelete}
               className="bg-red-500 hover:bg-red-600"
             >
@@ -1251,8 +1258,8 @@ const Profile = () => {
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">E-mail</label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 value={user?.email || 'Não informado'}
                 className="w-full p-3 border border-gray-200 rounded-lg bg-gray-50"
                 readOnly
@@ -1441,7 +1448,7 @@ const Plans = () => {
               {historico.map((h, i) => (
                 <TableRow key={i}>
                   <TableCell>Plano Premium - {h.mes}</TableCell>
-                  <TableCell>14/{String(i+1).padStart(2,'0')}/2024</TableCell>
+                  <TableCell>14/{String(i + 1).padStart(2, '0')}/2024</TableCell>
                   <TableCell>{h.valor}</TableCell>
                   <TableCell><span className="text-green-600 font-semibold">{h.status}</span></TableCell>
                 </TableRow>

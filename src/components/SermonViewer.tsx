@@ -103,7 +103,7 @@ export const SermonViewer = ({ sermon, onBack }: SermonViewerProps) => {
         <Button 
           variant="outline" 
           onClick={onBack}
-          className="flex items-center gap-2 hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-2 hover:bg-gray-50 transition-colors px-3"
         >
           <ArrowLeft className="w-4 h-4" />
           Voltar
@@ -113,7 +113,7 @@ export const SermonViewer = ({ sermon, onBack }: SermonViewerProps) => {
           <Button 
             variant="outline" 
             onClick={handleShare} 
-            className="flex items-center gap-2 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+            className="flex items-center gap-2 hover:bg-blue-50 hover:text-blue-600 transition-colors px-5"
           >
             <Share className="w-4 h-4" />
             Compartilhar
@@ -121,7 +121,7 @@ export const SermonViewer = ({ sermon, onBack }: SermonViewerProps) => {
           <Button 
             variant="outline" 
             onClick={handleDownload} 
-            className="flex items-center gap-2 hover:bg-green-50 hover:text-green-600 transition-colors"
+            className="flex items-center gap-2 hover:bg-green-50 hover:text-green-600 transition-colors px-3"
           >
             <Download className="w-4 h-4" />
             Baixar
@@ -132,13 +132,13 @@ export const SermonViewer = ({ sermon, onBack }: SermonViewerProps) => {
       <Card className="shadow-xl border-0 bg-white" ref={contentRef}>
         <CardHeader className="pb-6 border-b border-gray-100">
           <div className="flex items-center gap-3 mb-4">
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold ${
+            <div className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold ${
               sermon.content_type === 'sermon' 
                 ? 'bg-blue-50 text-blue-700' 
                 : 'bg-purple-50 text-purple-700'
             }`}>
               {sermon.content_type === 'sermon' ? (
-                <BookOpen className="w-4 h-4" />
+                <BookOpen className="w-4 h-4 px-4" />
               ) : (
                 <BookMarked className="w-4 h-4" />
               )}
