@@ -107,6 +107,8 @@ const Index = () => {
   useEffect(() => {
     if (activeTab === 'generate-sermon') {
       setActiveSermonTab('form');
+      setSelectedGeneration(null);
+      setEditingGeneration(null);
     }
   }, [activeTab]);
 
