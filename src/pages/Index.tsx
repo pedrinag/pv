@@ -112,6 +112,15 @@ const Index = () => {
     }
   }, [activeTab]);
 
+  // No início do componente Index, garanta que ao mudar para 'generate-devotional', a tab seja sempre 'form'
+  useEffect(() => {
+    if (activeTab === 'generate-devotional') {
+      setActiveSermonTab('form');
+      setSelectedGeneration(null);
+      setEditingGeneration(null);
+    }
+  }, [activeTab]);
+
   // Função para abrir geração de sermão limpa
   const handleNewSermon = () => {
     setSelectedGeneration(null);
