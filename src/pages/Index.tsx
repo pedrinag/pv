@@ -124,9 +124,9 @@ const Index = () => {
       case "dashboard":
         return <Dashboard setActiveTab={setActiveTab} onViewGeneration={handleViewGeneration} onEditGeneration={handleEditGeneration} onNewSermon={handleNewSermon} onNewDevotional={handleNewDevotional} />;
       case "generate-sermon":
-        return <GenerateSermon setActiveTab={setActiveTab} externalSermon={selectedGeneration} editingSermon={editingGeneration} setEditingSermon={setEditingGeneration} activeSermonTab={activeSermonTab} setActiveSermonTab={setActiveSermonTab} onBack={handleBackToForm} />;
+        return <GenerateSermon setActiveTab={setActiveTab} externalSermon={activeSermonTab === 'form' ? null : selectedGeneration} editingSermon={editingGeneration} setEditingSermon={setEditingGeneration} activeSermonTab={activeSermonTab} setActiveSermonTab={setActiveSermonTab} onBack={handleBackToForm} />;
       case "generate-devotional":
-        return <GenerateDevotional setActiveTab={setActiveTab} externalDevotional={selectedGeneration} editingDevotional={editingGeneration} setEditingDevotional={setEditingGeneration} activeSermonTab={activeSermonTab} setActiveSermonTab={setActiveSermonTab} onBack={handleBackToForm} />;
+        return <GenerateDevotional setActiveTab={setActiveTab} externalDevotional={activeSermonTab === 'form' ? null : selectedGeneration} editingDevotional={editingGeneration} setEditingDevotional={setEditingGeneration} activeSermonTab={activeSermonTab} setActiveSermonTab={setActiveSermonTab} onBack={handleBackToForm} />;
       case "history":
         return <History onViewGeneration={handleViewGeneration} onEditGeneration={handleEditGeneration} />;
       case "profile":
