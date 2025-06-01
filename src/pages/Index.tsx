@@ -233,7 +233,7 @@ const Dashboard = ({ setActiveTab, onViewGeneration, onEditGeneration, onNewSerm
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center relative z-10">
-            <Button variant="secondary" className="w-full bg-white/95 backdrop-blur-sm text-blue-600 hover:bg-white hover:scale-105 transition-all duration-300 font-semibold shadow-lg">
+            <Button variant="secondary" className="w-full bg-white/95 backdrop-blur-sm text-blue-600 hover:bg-white hover:scale-105 transition-all duration-300 font-semibold shadow-lg" onClick={onNewSermon}>
               <PlusCircle className="w-4 h-4 mr-2" />
               Começar Agora
             </Button>
@@ -254,7 +254,7 @@ const Dashboard = ({ setActiveTab, onViewGeneration, onEditGeneration, onNewSerm
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center relative z-10">
-            <Button variant="secondary" className="w-full bg-white/95 backdrop-blur-sm text-purple-600 hover:bg-white hover:scale-105 transition-all duration-300 font-semibold shadow-lg">
+            <Button variant="secondary" className="w-full bg-white/95 backdrop-blur-sm text-purple-600 hover:bg-white hover:scale-105 transition-all duration-300 font-semibold shadow-lg" onClick={onNewDevotional}>
               <PlusCircle className="w-4 h-4 mr-2" />
               Criar Devocional
             </Button>
