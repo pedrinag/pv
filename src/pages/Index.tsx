@@ -103,6 +103,13 @@ const Index = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, activeTab]);
 
+  // No início do componente Index, adicione um useEffect para garantir que ao mudar para 'generate-sermon', a tab seja sempre 'form'
+  useEffect(() => {
+    if (activeTab === 'generate-sermon') {
+      setActiveSermonTab('form');
+    }
+  }, [activeTab]);
+
   // Função para abrir geração de sermão limpa
   const handleNewSermon = () => {
     setSelectedGeneration(null);
