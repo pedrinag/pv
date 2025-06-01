@@ -124,9 +124,9 @@ const Index = () => {
       case "dashboard":
         return <Dashboard setActiveTab={setActiveTab} onViewGeneration={handleViewGeneration} onEditGeneration={handleEditGeneration} onNewSermon={handleNewSermon} onNewDevotional={handleNewDevotional} />;
       case "generate-sermon":
-        return <GenerateSermon setActiveTab={setActiveTab} externalSermon={activeSermonTab === 'form' ? null : selectedGeneration} editingSermon={editingGeneration} setEditingSermon={setEditingGeneration} activeSermonTab={activeSermonTab} setActiveSermonTab={setActiveSermonTab} onBack={handleBackToForm} />;
+        return <GenerateSermon setActiveTab={setActiveTab} externalSermon={activeSermonTab === 'form' ? null : selectedGeneration} editingSermon={editingGeneration} setEditingSermon={setEditingGeneration} activeSermonTab={activeSermonTab} setActiveSermonTab={setActiveSermonTab} onBack={handleBackToForm} activeTab={activeTab as string} />;
       case "generate-devotional":
-        return <GenerateDevotional setActiveTab={setActiveTab} externalDevotional={activeSermonTab === 'form' ? null : selectedGeneration} editingDevotional={editingGeneration} setEditingDevotional={setEditingGeneration} activeSermonTab={activeSermonTab} setActiveSermonTab={setActiveSermonTab} onBack={handleBackToForm} />;
+        return <GenerateDevotional setActiveTab={setActiveTab} externalDevotional={activeSermonTab === 'form' ? null : selectedGeneration} editingDevotional={editingGeneration} setEditingDevotional={setEditingGeneration} activeSermonTab={activeSermonTab} setActiveSermonTab={setActiveSermonTab} onBack={handleBackToForm} activeTab={activeTab as string} />;
       case "history":
         return <History onViewGeneration={handleViewGeneration} onEditGeneration={handleEditGeneration} />;
       case "profile":
@@ -268,7 +268,7 @@ const Dashboard = ({ setActiveTab, onViewGeneration, onEditGeneration, onNewSerm
   );
 };
 
-const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditingSermon, activeSermonTab, setActiveSermonTab, onBack }: { setActiveTab: (tab: string) => void, externalSermon: Generation | null, editingSermon: Generation | null, setEditingSermon: (generation: Generation | null) => void, activeSermonTab: string, setActiveSermonTab: (tab: string) => void, onBack: () => void }) => {
+const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditingSermon, activeSermonTab, setActiveSermonTab, onBack, activeTab }: { setActiveTab: (tab: string) => void, externalSermon: Generation | null, editingSermon: Generation | null, setEditingSermon: (generation: Generation | null) => void, activeSermonTab: string, setActiveSermonTab: (tab: string) => void, onBack: () => void, activeTab: string }) => {
   const [title, setTitle] = useState('');
   const [theme, setTheme] = useState<ThemeType | undefined>(undefined);
   const [occasion, setOccasion] = useState<OccasionType | undefined>(undefined);
@@ -292,7 +292,7 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
 
   // Limpa o estado ao abrir para gerar novo
   useEffect(() => {
-    if (!externalSermon && !editingSermon && activeSermonTab === 'form') {
+    if (activeTab !== 'generate-sermon') {
       setGeneratedSermon(null);
       setTitle('');
       setTheme(undefined);
@@ -301,7 +301,7 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
       setBibleVerse('');
       setContent('');
     }
-  }, [externalSermon, editingSermon, activeSermonTab]);
+  }, [activeTab]);
 
   const sermonToShow = externalSermon || generatedSermon;
 
@@ -610,7 +610,7 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
   );
 };
 
-const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotional, setEditingDevotional, activeSermonTab, setActiveSermonTab, onBack }: { setActiveTab: (tab: string) => void, externalDevotional: Generation | null, editingDevotional: Generation | null, setEditingDevotional: (generation: Generation | null) => void, activeSermonTab: string, setActiveSermonTab: (tab: string) => void, onBack: () => void }) => {
+const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotional, setEditingDevotional, activeSermonTab, setActiveSermonTab, onBack, activeTab }: { setActiveTab: (tab: string) => void, externalDevotional: Generation | null, editingDevotional: Generation | null, setEditingDevotional: (generation: Generation | null) => void, activeSermonTab: string, setActiveSermonTab: (tab: string) => void, onBack: () => void, activeTab: string }) => {
   const [title, setTitle] = useState('');
   const [theme, setTheme] = useState<ThemeType | undefined>(undefined);
   const [occasion, setOccasion] = useState<OccasionType | undefined>(undefined);
@@ -632,7 +632,7 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
 
   // Limpa o estado ao abrir para gerar novo
   useEffect(() => {
-    if (!externalDevotional && !editingDevotional && activeSermonTab === 'form') {
+    if (activeTab !== 'generate-devotional') {
       setGeneratedDevotional(null);
       setTitle('');
       setTheme(undefined);
@@ -640,7 +640,7 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
       setBibleVerse('');
       setContent('');
     }
-  }, [externalDevotional, editingDevotional, activeSermonTab]);
+  }, [activeTab]);
 
   const devotionalToShow = externalDevotional || generatedDevotional;
 
