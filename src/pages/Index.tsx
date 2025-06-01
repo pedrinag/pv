@@ -303,6 +303,19 @@ const GenerateSermon = ({ setActiveTab, externalSermon, editingSermon, setEditin
     }
   }, [activeTab]);
 
+  useEffect(() => {
+    if (externalSermon && externalSermon.content_type !== 'sermon') {
+      setGeneratedSermon(null);
+      setTitle('');
+      setTheme(undefined);
+      setOccasion(undefined);
+      setTone(undefined);
+      setBibleVerse('');
+      setContent('');
+      setActiveSermonTab('form');
+    }
+  }, [externalSermon]);
+
   const sermonToShow = externalSermon || generatedSermon;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -641,6 +654,18 @@ const GenerateDevotional = ({ setActiveTab, externalDevotional, editingDevotiona
       setContent('');
     }
   }, [activeTab]);
+
+  useEffect(() => {
+    if (externalDevotional && externalDevotional.content_type !== 'devotional') {
+      setGeneratedDevotional(null);
+      setTitle('');
+      setTheme(undefined);
+      setOccasion(undefined);
+      setBibleVerse('');
+      setContent('');
+      setActiveSermonTab('form');
+    }
+  }, [externalDevotional]);
 
   const devotionalToShow = externalDevotional || generatedDevotional;
 
